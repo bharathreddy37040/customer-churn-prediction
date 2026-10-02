@@ -1,25 +1,71 @@
 # Customer Churn Prediction Using Logistic Regression
 
-A binary classification project that predicts whether a telecommunications customer will churn using **logistic regression**. Built as **Project 03 of my AI Engineering Journey**, based on IBM's machine learning learning materials and implemented as a modular Python application.
+A Machine Learning project that predicts whether a telecommunications customer is likely to leave a service using Logistic Regression. This project focuses on data preprocessing, feature standardization, model training, prediction, evaluation and visualization using Python and Scikit-learn.
 
-## Project overview
+**Author:** Bharath Reddy  
+**Domain:** Machine Learning  
+**Algorithm:** Logistic Regression  
+**Language:** Python  
+**Project Type:** Machine Learning / Binary Classification
 
-Customer churn is when a customer stops using a company's services. This project estimates the probability that a customer will churn based on seven customer attributes.
+---
 
-- **Target:** `churn` (`0` = no churn; `1` = churn)
-- **Model:** scikit-learn `LogisticRegression` with default parameters
-- **Evaluation:** predicted classes, predicted probabilities and log loss
-- **Interpretability:** bar chart of learned feature coefficients
+## Project Overview
+
+Customer churn occurs when a customer stops using a company's products or services. Predicting customer churn helps businesses understand customer behavior and identify customers who may leave.
+
+This project uses Logistic Regression, a supervised Machine Learning algorithm, to predict whether a telecommunications customer will churn based on seven selected customer attributes.
+
+### Project Objectives
+
+- Predict whether a customer is likely to churn.
+- Understand and preprocess customer data.
+- Apply feature standardization.
+- Train a Logistic Regression model.
+- Evaluate model performance using log loss.
+- Visualize and interpret feature coefficients.
+
+### Project Details
+
+- **Target Variable:** `churn`
+- **Classification Type:** Binary Classification
+- **Model:** Logistic Regression
+- **Evaluation Metric:** Log Loss
+- **Visualization:** Feature Coefficient Bar Chart
+
+---
+
+## Technologies Used
+
+- **Python:** Main programming language.
+- **Pandas:** Data loading and manipulation.
+- **NumPy:** Numerical computations.
+- **Scikit-learn:** Data preprocessing, model training and evaluation.
+- **Matplotlib:** Data visualization.
+- **VS Code:** Development environment.
+- **Git and GitHub:** Version control and project hosting.
+
+---
 
 ## Dataset
 
-This project uses IBM's sample telecommunications customer churn dataset, `ChurnData.csv`.
+This project uses IBM's sample telecommunications customer churn dataset, named `ChurnData.csv`.
+
+**Dataset Source:** IBM Developer Skills Network
 
 **[Download ChurnData.csv](https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-ML0101EN-SkillsNetwork/labs/Module%203/data/ChurnData.csv)**
 
-The dataset contains **200 records and 28 columns**. The target distribution is **142 non-churn customers (71%)** and **58 churn customers (29%)**. There were no missing values in the supplied dataset.
+### Dataset Information
 
-### Input features
+- **Total Records:** 200
+- **Total Columns:** 28
+- **Target Variable:** `churn`
+- **Non-Churn Customers:** 142 (71%)
+- **Churn Customers:** 58 (29%)
+
+### Input Features
+
+The model uses the following seven selected features:
 
 | Feature | Description |
 |---|---|
@@ -27,135 +73,291 @@ The dataset contains **200 records and 28 columns**. The target distribution is 
 | `age` | Customer age |
 | `address` | Time at current address |
 | `income` | Customer income |
-| `ed` | Education level (encoded numerically) |
+| `ed` | Education level |
 | `employ` | Employment duration |
 | `equip` | Equipment ownership indicator |
 
-The model uses these seven features, rather than all 27 available input columns, to follow the IBM lab.
+These features are selected to follow the IBM learning exercise rather than using all available input columns.
 
-## How it works
+---
 
-1. **Load:** Read `ChurnData.csv` with pandas.
-2. **Select:** Extract the seven features and convert `churn` to integer labels.
-3. **Standardize:** Apply `StandardScaler` to put input features on comparable scales.
-4. **Split:** Use an 80/20 train/test split (`random_state=4`): **160 training records** and **40 test records**.
-5. **Train:** Fit a logistic regression classifier using scikit-learn's default settings.
-6. **Predict:** Produce both class labels (`predict`) and probabilities (`predict_proba`).
-7. **Evaluate:** Calculate test-set log loss from the actual labels and predicted probabilities.
-8. **Visualize:** Plot the model's seven learned coefficients.
+## Machine Learning Algorithm
 
+### Logistic Regression
 
-### Why logistic regression?
+Logistic Regression is a supervised Machine Learning algorithm used for classification problems. Despite its name, it is commonly used to predict categorical outcomes.
 
-Despite its name, logistic regression is a classification algorithm. It combines the input features linearly and passes the result through the sigmoid function to produce a probability between 0 and 1:
+In this project, Logistic Regression predicts whether a customer will churn or not.
 
-$$
-P(\text{churn}=1 \mid X) = \frac{1}{1 + e^{-(w^T X + b)}}
-$$
+The sigmoid function converts a linear combination of input features into a probability between 0 and 1.
 
-By default, a probability of at least 0.5 is classified as churn (`1`); otherwise, the prediction is no churn (`0`).
+**Formula:**
 
-### Why log loss?
+\[
+P(\text{churn}=1 \mid X)=\frac{1}{1+e^{-(w^TX+b)}}
+\]
 
-Accuracy considers only the predicted class. **Log loss** also considers the confidence of each probability prediction. It penalizes predictions that confidently assign low probability to the actual outcome. **Lower log loss is better.**
+Where:
 
-For a single binary prediction, with actual label `y` and predicted churn probability `p`:
+- `P` = Probability of customer churn
+- `X` = Input features
+- `w` = Model coefficients
+- `b` = Intercept
+- `e` = Euler's number
 
-$$
-L = -\left[y\log(p) + (1-y)\log(1-p)\right]
-$$
+### Prediction
+
+- If the predicted probability is 0.5 or higher, the customer is classified as churn (`1`).
+- If the predicted probability is below 0.5, the customer is classified as no churn (`0`).
+
+---
+
+## Project Workflow
+
+The project follows these steps:
+
+- **Data Loading:** Load the customer churn dataset using Pandas.
+- **Feature Selection:** Select seven relevant input features and the target variable.
+- **Data Preprocessing:** Prepare the selected features for Machine Learning.
+- **Feature Standardization:** Apply `StandardScaler` to standardize the input features.
+- **Train-Test Split:** Split the dataset into training and testing sets using an 80:20 ratio.
+- **Model Training:** Train the Logistic Regression classifier using Scikit-learn.
+- **Prediction:** Predict customer churn labels and probabilities.
+- **Model Evaluation:** Calculate log loss using the actual labels and predicted probabilities.
+- **Visualization:** Generate a bar chart of the learned feature coefficients.
+
+### Train-Test Split
+
+- **Training Data:** 160 records (80%)
+- **Testing Data:** 40 records (20%)
+- **Random State:** 4
+
+---
+
+## Model Evaluation
+
+### Log Loss
+
+Log Loss is an evaluation metric that measures how well a classification model predicts probabilities.
+
+It penalizes incorrect predictions, especially when the model is highly confident in those predictions.
+
+**Formula:**
+
+\[
+L=-[y\log(p)+(1-y)\log(1-p)]
+\]
+
+Where:
+
+- `y` = Actual label
+- `p` = Predicted probability
+- `L` = Log loss
+
+### Interpretation
+
+- Lower log loss indicates better probabilistic predictions.
+- Higher log loss indicates poorer probabilistic predictions.
+
+---
 
 ## Results
 
-| Item | Result |
+The existing implementation reports the following results:
+
+| Metric | Result |
 |---|---:|
-| Training samples | 160 |
-| Test samples | 40 |
-| Input features | 7 |
-| **Test log loss** | **0.4069** |
+| Total Records | 200 |
+| Training Samples | 160 |
+| Testing Samples | 40 |
+| Input Features | 7 |
+| Algorithm | Logistic Regression |
+| Test Log Loss |0.40689 |
 
-The model produced predicted labels and probabilities for all 40 test customers. Log loss alone does not establish accuracy, recall or performance on new populations; those metrics were not measured in this implementation.
+The model generates predicted class labels and churn probabilities for the test dataset.
 
-### Feature coefficients
+The reported log loss is from the existing implementation and should be verified by running the project.
 
-![Logistic regression feature coefficients](outputs/feature_coefficients.png)
+**Note:** Log loss alone does not establish model accuracy, precision, recall or performance on new customer populations.
 
-The coefficient chart from this run shows:
+---
 
-- **Negative coefficients:** `employ`, `tenure`, `age`.
-- **Positive coefficients:** `income`, `address`, `ed`, `equip`.
+## Feature Coefficient Visualization
 
-Because the inputs were standardized, coefficients describe the direction and relative strength of each feature's association with the model's **log-odds** of churn, holding the other features constant. They are **not causal effects**.
+The project visualizes the learned Logistic Regression coefficients using Matplotlib.
 
-## Project structure
+![Logistic Regression Feature Coefficients](outputs/feature_coefficients.png)
 
-This project is designed to run inside the shared `AI-Engineering-workspace`:
+### Feature Interpretation
 
-```text
-AI-Engineering-workspace/
-├── .venv/                              # Shared virtual environment
-├── datasets/
-│   └── churn/
-│       └── ChurnData.csv               # Download separately
-└── 03-Customer-Churn-Prediction/
-    ├── src/
-    │   ├── __init__.py
-    │   ├── config.py                   # Dataset path and selected features
-    │   ├── data_loader.py              # CSV loading
-    │   ├── preprocessing.py            # Standardization and split
-    │   ├── trainer.py                  # Logistic regression training
-    │   ├── evaluator.py                # Predictions and log loss
-    │   └── visualizer.py               # Coefficient chart
-    ├── outputs/
-    │   └── feature_coefficients.png
-    ├── main.py                         # End-to-end entry point
-    └── README.md
-```
+In the reported run:
 
-**Note:** `src/config.py` expects the dataset at `../datasets/churn/ChurnData.csv`, relative to this project folder. If you clone this project alone, create the `datasets/churn/` directory alongside the project folder or update `DATASET_PATH` in `src/config.py`.
+**Negative Coefficients:**
+- `employ`
+- `tenure`
+- `age`
 
-## Setup and run
+**Positive Coefficients:**
+- `income`
+- `address`
+- `ed`
+- `equip`
 
-**Requirements:** Python 3.10+ and the packages `numpy`, `pandas`, `scikit-learn` and `matplotlib`.
+Because the features are standardized, the coefficients indicate the direction of association with the model's log-odds of churn, holding the other features constant.
 
-From the `AI-Engineering-workspace` directory, create and activate a shared virtual environment if you do not already have one:
+These coefficients describe associations learned by the model and do not establish causal relationships.
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install numpy pandas scikit-learn matplotlib
-```
+---
 
-Download the dataset using the link above and save it as:
+## Project Structure
 
 ```text
-datasets/churn/ChurnData.csv
+customer-churn-prediction/
+│
+├── outputs/
+│   └── feature_coefficients.png
+│
+├── src/
+│   ├── __init__.py
+│   ├── config.py
+│   ├── data_loader.py
+│   ├── evaluator.py
+│   ├── preprocessing.py
+│   ├── trainer.py
+│   └── visualizer.py
+│
+├── main.py
+├── README.md
+└── requirements.txt
 ```
 
-Then run:
+### File Descriptions
+
+- **main.py:** Main entry point that runs the complete project workflow.
+- **config.py:** Stores configuration details, dataset path and selected features.
+- **data_loader.py:** Loads the customer churn dataset.
+- **preprocessing.py:** Performs feature standardization and train-test splitting.
+- **trainer.py:** Trains the Logistic Regression model.
+- **evaluator.py:** Generates predictions and calculates log loss.
+- **visualizer.py:** Creates and saves the feature coefficient chart.
+- **outputs/:** Stores generated visualizations.
+- **requirements.txt:** Contains the required Python libraries.
+- **README.md:** Provides project documentation.
+
+---
+
+## Installation and Setup
+
+### Prerequisites
+
+- Python 3.10 or later
+- pip
+- VS Code
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/bharathreddy37040/customer-churn-prediction.git
+```
+
+```bash
+cd customer-churn-prediction
+```
+
+Replace `YOUR_USERNAME` with your GitHub username.
+
+### Create a Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+### Activate the Virtual Environment
+
+For Windows PowerShell:
 
 ```powershell
-python 03-Customer-Churn-Prediction/main.py
+.\venv\Scripts\Activate.ps1
 ```
 
-The program prints predicted classes, predicted probabilities and test log loss. It also displays the coefficient chart and saves it to `outputs/feature_coefficients.png`.
+### Install Dependencies
 
-## Key learnings
+```bash
+pip install -r requirements.txt
+```
 
-- Logistic regression and the sigmoid function for binary classification
-- The difference between predicted labels and predicted probabilities
-- Feature standardization and train/test splitting
-- Evaluating probability predictions with log loss
-- Interpreting logistic regression coefficients
-- Organizing a machine learning workflow into reusable Python modules
+### Download the Dataset
+
+Download `ChurnData.csv` from the IBM dataset link provided above.
+
+Place it at the location specified by `DATASET_PATH` in `src/config.py`.
+
+Update the path in `config.py` if necessary.
+
+### Run the Project
+
+```bash
+python main.py
+```
+
+The program runs the machine learning workflow, generates predictions, calculates log loss and creates the feature coefficient visualization.
+
+---
+
+## Key Learnings
+
+Through this project, I studied:
+
+- Fundamentals of Machine Learning.
+- Logistic Regression for binary classification.
+- Data loading and manipulation using Pandas.
+- Numerical operations using NumPy.
+- Feature standardization using Scikit-learn.
+- Train-test splitting and model training.
+- Class prediction and probability prediction.
+- Model evaluation using log loss.
+- Feature coefficient interpretation.
+- Data visualization using Matplotlib.
+- Modular Python project organization.
+
+---
 
 ## Limitations
 
-- **Small dataset:** Only 200 records and 40 test examples; results may vary with the split.
-- **Class imbalance:** 71% of the records are non-churn customers.
-- **Preprocessing leakage:** To reproduce the IBM lab's sequence, the scaler is fitted before the train/test split. For a production-oriented implementation, split first and fit the scaler **only on training data**.
-- **Limited evaluation:** This learning project reports log loss; additional metrics and validation would be needed before deployment.
+- **Small Dataset:** The dataset contains only 200 records, including 40 test samples.
+- **Class Imbalance:** The dataset contains 71% non-churn customers and 29% churn customers.
+- **Preprocessing Leakage:** In the existing implementation, the scaler is fitted before the train-test split. A more robust approach is to split the data first and fit the scaler only on the training data.
+- **Limited Evaluation:** The existing implementation reports log loss but does not provide accuracy, precision, recall or F1-score.
+- **Generalization:** Performance on this small dataset may not represent results on new or real-world customer populations.
+
+---
+
+## Future Improvements
+
+- Apply a leakage-free preprocessing pipeline.
+- Evaluate the model using accuracy, precision, recall and F1-score.
+- Generate a confusion matrix.
+- Perform cross-validation.
+- Compare Logistic Regression with other classification algorithms.
+- Improve model performance through hyperparameter tuning.
+- Develop a simple web application to demonstrate customer churn predictions.
+
+---
 
 ## Acknowledgment
 
-Based on the customer churn logistic regression exercise from **IBM Developer Skills Network**. The modular Python implementation, visualization and project documentation were developed for my AI Engineering Journey.
+This project is based on the customer churn Logistic Regression exercise from **IBM Developer Skills Network** and builds upon the existing implementation by [Bharath Reddy].
+
+I used the learning materials and existing implementation to study the Machine Learning workflow and customize the project as part of my learning journey in Python and Machine Learning.
+
+---
+
+## Author
+
+**Bharath Reddy**
+
+Aspiring Python and Machine Learning Developer
+
+**GitHub:** https://github.com/bharathreddy37040
+
+**Project:** Customer Churn Prediction Using Logistic Regression
